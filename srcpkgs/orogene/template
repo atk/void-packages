@@ -1,0 +1,21 @@
+# Template file for 'orogene'
+pkgname=orogene
+_commit="76d96cb9f59ff99e95ea4cd50fc9f71b0c7a9107"
+version=0.1.0
+revision=1
+wrksrc="orogene-${_commit}"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="libressl-devel gtk+3-devel webkit2gtk-devel"
+short_desc="Fast node package manager written in rust"
+maintainer="Alex Lohr <alex.lohr@logmein.com>"
+license="Apache-2.0"
+homepage="https://github.com/orogene/orogene"
+distfiles="https://github.com/orogene/orogene/tarball/${_commit}.zip"
+checksum=7822c857105db8d615d6e1a41f914404031f3e37f4741b269f19262883a9f260
+
+do_install() {
+    vbin target/${RUST_TARGET}/release/oro
+# TODO: requires tauri?
+# vbin target/${RUST_TARGET}/release/oro-gui
+}
