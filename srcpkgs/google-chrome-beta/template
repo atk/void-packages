@@ -1,5 +1,5 @@
 # Template file for 'google-chrome-beta'
-_chromeVersion=81.0.4044.43
+_chromeVersion=92.0.4515.59
 _chromeRevision=1
 _channel=beta
 
@@ -22,7 +22,7 @@ _chromeUrl="${_baseUrl}/${_filename}"
 _licenseUrl="https://www.google.com/intl/en/chrome/privacy/eula_text.html"
 
 distfiles="$_chromeUrl"
-checksum=106521fe4ae46e79f934825fdfa0b009afca5d22c04d088c13b65a453a0a6b2d
+checksum=2a1c2c8320673d51d56baa665a2942c422aaa741fe8efed432ad58ffef500963
 
 do_extract() {
 	mkdir -p ${DESTDIR}
