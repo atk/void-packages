@@ -1,0 +1,16 @@
+diff --git a/ggml.c b/ggml.c
+index 535c7b7..d273acd 100644
+--- a/ggml.c
++++ b/ggml.c
+@@ -15,6 +15,11 @@
+ #include <stdio.h>
+ #include <float.h>
+ 
++// to support musl-libc
++#ifndef CLOCK_MONOTONIC
++#define CLOCK_MONOTONIC 1
++#endif
++
+ // if C99 - static_assert is noop
+ // ref: https://stackoverflow.com/a/53923785/4039976
+ #ifndef static_assert
