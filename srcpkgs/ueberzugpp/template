@@ -1,0 +1,18 @@
+# Template file for 'ueberzugpp'
+pkgname=ueberzugpp
+version=2.9.0
+revision=1
+build_style=cmake
+configure_args="-DENABLE_WAYLAND=ON -DENABLE_OPENGL=ON"
+hostmakedepends="pkg-config"
+makedepends="CLI11 GSL chafa-devel extra-cmake-modules fmt-devel json-c++
+ libglvnd-devel libopencv-devel libsixel-devel libvips-devel
+ openssl-devel spdlog tbb-devel wayland-devel wayland-protocols xcb-util-image-devel"
+short_desc="Drop in replacement for ueberzug"
+maintainer="Marcin Puc <tranzystorek.io@protonmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/jstkdng/ueberzugpp"
+changelog="https://github.com/jstkdng/ueberzugpp/releases"
+distfiles="https://github.com/jstkdng/ueberzugpp/archive/refs/tags/v${version}.tar.gz"
+checksum=749ca0b6f9ecae449d86b449bc6ba434d47f106e358bd4f8a61c7b983330440e
+conflicts="ueberzug"
