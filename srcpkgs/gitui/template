@@ -1,6 +1,6 @@
 # Template file for 'gitui'
 pkgname=gitui
-version=0.23.0
+version=0.24.0
 revision=2
 build_style=cargo
 make_check_args="-- --skip  components::textinput::tests::test_visualize_newline"
@@ -12,7 +12,7 @@ license="MIT"
 homepage="https://github.com/extrawurst/gitui"
 changelog="https://github.com/extrawurst/gitui/raw/master/CHANGELOG.md"
 distfiles="https://github.com/extrawurst/gitui/archive/refs/tags/v${version}.tar.gz"
-checksum=5180d5d8fd2fe6400148d6078b4b318c7530ca6c27ea8d8c0882f2e4d9064a80
+checksum=0d4b10a70a03a5c789b7f2b698ab1c81b1c9c8037c2b34bb4ed7d3f3f28027f7
 
 post_install() {
 	vlicense LICENSE.md
