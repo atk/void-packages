@@ -1,0 +1,31 @@
+# Template file for 'worldofpadman'
+pkgname=worldofpadman
+version=v1.7.0
+revision=1
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DBUILD_RENDERER_VULKAN=ON -Wno-dev"
+hostmakedepends="libtool pkg-config 7zip"
+makedepends="libglvnd-devel glew-devel SDL2-devel zlib-devel minizip-devel libjpeg-turbo-devel libcurl-devel lua54-devel libvorbis-devel libtheora-devel freetype-devel libpng-devel sqlite-devel libopenal-devel cJSON-devel"
+depends=""
+short_desc="Colorful fun fps based on quake3"
+maintainer="Alex Lohr <alexthkloss@web.de>"
+license="custom:worldofpadman"
+homepage="https://worldofpadman.net/"
+changelog="https://github.com/PadWorld-Entertainment/worldofpadman/releases"
+distfiles="https://github.com/PadWorld-Entertainment/worldofpadman/archive/refs/tags/${version}.tar.gz"
+checksum=f89ff3a9514a99b82fe1649c911ffbf541321c8e4734e970a4a44d5884ed0231
+lib32disabled=yes
+
+#do_build() {
+#	mkdir -p build
+#	cd build
+#	cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install
+#	cmake --build .
+#	cmake --install .
+#}
+
+post_install() {
+	vlicense COPYING.md
+	vlicense LICENSES.md
+	vlicense MAPPACK.md
+}
