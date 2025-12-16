@@ -1,12 +1,13 @@
 # Template file for 'worldofpadman'
 pkgname=worldofpadman
+# do not forget to adjust the version in the INSTALL script
 version=v1.7.0
 revision=1
 build_style=cmake
-configure_args="-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DBUILD_RENDERER_VULKAN=ON -Wno-dev"
-hostmakedepends="libtool pkg-config 7zip"
-makedepends="libglvnd-devel glew-devel SDL2-devel zlib-devel minizip-devel libjpeg-turbo-devel libcurl-devel lua54-devel libvorbis-devel libtheora-devel freetype-devel libpng-devel sqlite-devel libopenal-devel cJSON-devel"
-depends=""
+configure_args="-DCMAKE_BUILD_TYPE=Release -DUSE_OPENAL=ON -DUSE_OPENAL_DLOPEN=ON -DUSE_CURL=ON -DUSE_CURL_DLOPEN=ON -DUSE_CODEC_VORBIS=ON -DUSE_FREETYPE=ON -DCMAKE_INSTALL_PREFIX=install -DBUILD_RENDERER_VULKAN=ON -DDEFAULT_BASEDIR=/usr/lib -Wno-dev"
+hostmakedepends="libtool pkg-config"
+makedepends="libglvnd-devel glew-devel SDL2-devel zlib-devel minizip-devel libjpeg-turbo-devel libcurl-devel lua54-devel libvorbis-devel opusfile-devel freetype-devel libpng-devel sqlite-devel libopenal-devel cJSON-devel vulkan-loader-devel"
+depends="unzip"
 short_desc="Colorful fun fps based on quake3"
 maintainer="Alex Lohr <alexthkloss@web.de>"
 license="custom:worldofpadman"
@@ -16,16 +17,12 @@ distfiles="https://github.com/PadWorld-Entertainment/worldofpadman/archive/refs/
 checksum=f89ff3a9514a99b82fe1649c911ffbf541321c8e4734e970a4a44d5884ed0231
 lib32disabled=yes
 
-#do_build() {
-#	mkdir -p build
-#	cd build
-#	cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install
-#	cmake --build .
-#	cmake --install .
-#}
-
-post_install() {
+do_install() {
 	vlicense COPYING.md
 	vlicense LICENSES.md
-	vlicense MAPPACK.md
+	vinstall renderer_opengl1_${XBPS_MACHINE}.so 644 /usr/lib
+	vinstall renderer_opengl2_${XBPS_MACHINE}.so 644 /usr/lib
+	vinstall renderer_vulkan_${XBPS_MACHINE}.so 644 /usr/lib
+	vbin wop.${XBPS_MACHINE}
+	vbin wopded.${XBPS_MACHINE}
 }
