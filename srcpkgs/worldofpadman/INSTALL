@@ -1,0 +1,18 @@
+#
+# this script installs the wop data files
+#
+
+download="https://github.com/PadWorld-Entertainment/worldofpadman/releases/download/v1.7.0/wop-1.7.0-unified.zip"
+
+case "${ACTION}" in
+post)
+	if [ ! -f /tmp/${download##*/} ]
+	then
+		xbps-fetch ${download} -o /tmp/${download##*/}
+	fi
+  unzip /tmp/${download##*/} "wop/*" -d /tmp
+  mv /tmp/wop /usr/lib/
+	rm /tmp/${download##*/}
+	;;
+esac
+

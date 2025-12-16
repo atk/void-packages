@@ -1,0 +1,10 @@
+#
+# This script removes the wop data files
+#
+
+case "${ACTION}" in
+post)
+	rm -rf /usr/lib/wop
+	;;
+esac
+
