@@ -25,4 +25,8 @@ do_install() {
 	vinstall renderer_vulkan_${XBPS_MACHINE}.so 644 /usr/lib
 	vbin wop.${XBPS_MACHINE}
 	vbin wopded.${XBPS_MACHINE}
+	vinstall misc/wop.svg 644 /usr/share/icons
+  vinstall misc/linux/wop.desktop.in 644 /usr/share/applications/wop.desktop
+	vsed -i /usr/share/applications/wop.desktop -i /usr/share/applications/wop.desktop -e "s/Exec: .*/Exec: /usr/bin/wop.${XBPS_MACHINE}/"
 }
+
