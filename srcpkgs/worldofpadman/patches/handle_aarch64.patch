@@ -1,0 +1,11 @@
+--- a/code/CMakeLists.txt	2026-02-14 16:29:16.353457268 +0100
++++ b/code/CMakeLists.txt	2026-02-14 16:41:24.741784829 +0100
+@@ -348,7 +348,7 @@
+ 			set_source_files_properties(${_file} PROPERTIES COMPILE_FLAGS "/safeseh")
+ 		endforeach()
+ 		target_sources(${TARGET} PRIVATE ${ASM_SRCS})
+-	elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "arm" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "arm64")
++	elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "arm" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "arm64" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64")
+ 	else()
+ 		target_sources(${TARGET} PRIVATE ${CODE_DIR}/asm/snapvector.c ${CODE_DIR}/asm/ftola.c)
+ 		set_source_files_properties(${CODE_DIR}/asm/snapvector.c PROPERTIES COMPILE_FLAGS -march=k8)

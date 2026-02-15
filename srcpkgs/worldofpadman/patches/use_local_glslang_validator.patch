@@ -1,0 +1,11 @@
+--- a/code/CMakeLists.txt	2024-12-01 20:35:20.000000000 +0100
++++ b/code/CMakeLists.txt	2026-02-14 16:11:39.748427791 +0100
+@@ -1,7 +1,7 @@
+ if (APPLE)
+ 	set(GLSL_LANG_VALIDATOR ${CODE_DIR}/../tools/darwin/glslangValidator)
+ elseif(UNIX)
+-	set(GLSL_LANG_VALIDATOR ${CODE_DIR}/../tools/linux/glslangValidator)
++	set(GLSL_LANG_VALIDATOR /usr/bin/glslangValidator)
+ else()
+ 	set(GLSL_LANG_VALIDATOR ${CODE_DIR}/../tools/windows/glslangValidator.exe)
+ endif()

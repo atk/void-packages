@@ -1,0 +1,13 @@
+--- a/code/qcommon/q_platform.h	2024-12-01 20:35:20.000000000 +0100
++++ b/code/qcommon/q_platform.h.new	2026-02-14 17:17:58.743830869 +0100
+@@ -189,7 +189,9 @@
+ #define PATH_SEP '/'
+ 
+ #if !defined(ARCH_STRING)
+-#if INTPTR_MAX == INT64_MAX
++#if defined(__aarch64__)
++#define ARCH_STRING "arm64"
++#elif INTPTR_MAX == INT64_MAX
+ #define ARCH_STRING "x86_64"
+ #elif INTPTR_MAX == INT32_MAX
+ #define ARCH_STRING "x86"
