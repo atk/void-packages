@@ -1,0 +1,42 @@
+--- a/code/qcommon/vm.c	2024-12-01 20:35:20.000000000 +0100
++++ b/code/qcommon/vm.c	2026-02-15 18:38:24.094964634 +0100
+@@ -629,11 +629,13 @@
+ 		interpret = VMI_BYTECODE;
+ 	}
+ #else
++#ifndef __aarch64__
+ 	if (interpret != VMI_BYTECODE) {
+ 		vm->compiled = qtrue;
+ 		VM_Compile(vm, header);
+ 	}
+ #endif
++#endif
+ 	// VM_Compile may have reset vm->compiled if compilation failed
+ 	if (!vm->compiled) {
+ 		VM_PrepareInterpreter(vm, header);
+@@ -799,10 +799,12 @@
+ 	} else {
+ #if (id386 || idsparc) && !defined __clang__ // calling convention doesn't need conversion in some cases
+ #ifndef NO_VM_COMPILED
++#ifndef __aarch64__
+ 		if (vm->compiled)
+ 			r = VM_CallCompiled(vm, (int *)&callnum);
+ 		else
+ #endif
++#endif
+ 			r = VM_CallInterpreted(vm, (int *)&callnum);
+ #else
+ 		struct {
+@@ -818,10 +820,12 @@
+ 		}
+ 		va_end(ap);
+ #ifndef NO_VM_COMPILED
++#ifndef __aarch64__
+ 		if (vm->compiled)
+ 			r = VM_CallCompiled(vm, &a.callnum);
+ 		else
+ #endif
++#endif
+ 			r = VM_CallInterpreted(vm, &a.callnum);
+ #endif
+ 	}

@@ -4,7 +4,7 @@ pkgname=worldofpadman
 version=v1.7.0
 revision=1
 build_style=cmake
-configure_args="-DCMAKE_BUILD_TYPE=Release -DUSE_OPENAL=ON -DUSE_OPENAL_DLOPEN=ON -DUSE_CURL=ON -DUSE_CURL_DLOPEN=ON -DUSE_CODEC_VORBIS=ON -DUSE_FREETYPE=ON -DCMAKE_INSTALL_PREFIX=install -DBUILD_RENDERER_VULKAN=ON -DCMAKE_SYSTEM_PROCESSOR=${XBPS_TARGET_MACHINE} -DNO_VM_COMPILED=ON -Wno-dev"
+configure_args="-DCMAKE_BUILD_TYPE=Release -DUSE_OPENAL=ON -DUSE_OPENAL_DLOPEN=ON -DUSE_CURL=ON -DUSE_CURL_DLOPEN=ON -DUSE_CODEC_VORBIS=ON -DUSE_FREETYPE=ON -DCMAKE_INSTALL_PREFIX=install -DBUILD_RENDERER_VULKAN=ON -DDEFAULT_BASEDIR=/usr/lib -Wno-dev"
 hostmakedepends="glslang libtool pkg-config"
 makedepends="libglvnd-devel glew-devel SDL2-devel zlib-devel minizip-devel libjpeg-turbo-devel libcurl-devel lua54-devel libvorbis-devel opusfile-devel freetype-devel libpng-devel sqlite-devel libopenal-devel cJSON-devel vulkan-loader-devel"
 depends="unzip"
@@ -17,16 +17,25 @@ distfiles="https://github.com/PadWorld-Entertainment/worldofpadman/archive/refs/
 checksum=f89ff3a9514a99b82fe1649c911ffbf541321c8e4734e970a4a44d5884ed0231
 lib32disabled=yes
 
+_TARGET_ARCH="$XBPS_TARGET_MACHINE"
+
+case "$XBPS_TARGET_MACHINE" in
+	aarch64*)
+		configure_args="$configure_args -DCMAKE_SYSTEM_PROCESSOR=arm64 -D__aarch64__=ON -DNO_VM_COMPILED=ON"
+		_TARGET_ARCH="arm64";;
+	*-musl)
+		_TARGET_ARCH="${_TARGET_ARCH%-musl}";;
+esac
+
 do_install() {
 	vlicense COPYING.md
 	vlicense LICENSES.md
-	vinstall renderer_opengl1_${XBPS_MACHINE}.so 644 /usr/lib
-	vinstall renderer_opengl2_${XBPS_MACHINE}.so 644 /usr/lib
-	vinstall renderer_vulkan_${XBPS_MACHINE}.so 644 /usr/lib
-	vbin wop.${XBPS_MACHINE}
-	vbin wopded.${XBPS_MACHINE}
+	vinstall renderer_opengl1_${_TARGET_ARCH}.so 644 /usr/lib
+	vinstall renderer_opengl2_${_TARGET_ARCH}.so 644 /usr/lib
+	vinstall renderer_vulkan_${_TARGET_ARCH}.so 644 /usr/lib
+	vbin wop.${_TARGET_ARCH}
+	vbin wopded.${_TARGET_ARCH}
 	vinstall misc/wop.svg 644 /usr/share/icons
-  vinstall misc/linux/wop.desktop.in 644 /usr/share/applications/wop.desktop
-	vsed -i /usr/share/applications/wop.desktop -i /usr/share/applications/wop.desktop -e "s/Exec: .*/Exec: /usr/bin/wop.${XBPS_MACHINE}/"
+	vinstall misc/linux/wop.desktop.in 644 /usr/share/applications/ wop.desktop
+	vsed -i $DESTDIR/usr/share/applications/wop.desktop -e "s/Exec=.*/Exec=\/usr\/bin\/wop.${_TARGET_ARCH}/"
 }
-

@@ -10,8 +10,8 @@ post)
 	then
 		xbps-fetch ${download} -o /tmp/${download##*/}
 	fi
-  unzip /tmp/${download##*/} "wop/*" -d /tmp
-  mv /tmp/wop /usr/lib/
+	unzip /tmp/${download##*/} "wop/*" -d /tmp
+	mv /tmp/wop /usr/lib/
 	rm /tmp/${download##*/}
 	;;
 esac
