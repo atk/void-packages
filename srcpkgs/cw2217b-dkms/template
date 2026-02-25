@@ -1,0 +1,33 @@
+# Template file for 'cw2217b-dkms'
+pkgname=cw2217b-dkms
+version=0.0.1
+revision=1
+_modver=0.0.1
+_gitref=11ea5bd00db01082ae1bfc8e4638dae514f4bb79
+depends="dkms dtc"
+short_desc="CW2217B battery controller driver (DKMS)"
+maintainer="Alex Lohr <alexthkloss@web.de>"
+license="GPL-2.0-only"
+homepage="https://github.com/diegojfer/kmod-cw2217b"
+distfiles="https://github.com/diegojfer/kmod-cw2217b/archive/${_gitref}.tar.gz"
+checksum=ca6caba2e55335112c01092d1275349d8bcc4d7da900d5c8341e55da6cd6d4d1
+dkms_modules="cw2217b ${_modver}"
+
+do_install() {
+	local dest=/usr/src/cw2217b-${_modver}
+
+	cat <<-EOF >dkms.conf
+	PACKAGE_NAME="cw2217b"
+	PACKAGE_VERSION="${_modver}"
+	MAKE="'make' KVER=\${kernelver}"
+	BUILT_MODULE_NAME[0]="cw2217b"
+	DEST_MODULE_LOCATION[0]="/kernel/drivers/power/supply"
+	EOF
+	vmkdir ${dest}
+	cp -r dkms.conf dkms_conf.template PKGBUILD Makefile cw2217b.c cw2217b.dts ${DESTDIR}/${dest}
+
+	# modules-load.d(5) file.
+	vmkdir usr/lib/modules-load.d
+	echo "cw2217b" > ${DESTDIR}/usr/lib/modules-load.d/${pkgname}.conf
+	chmod 644 ${DESTDIR}/usr/lib/modules-load.d/${pkgname}.conf
+}
