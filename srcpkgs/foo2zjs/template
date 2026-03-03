@@ -1,0 +1,29 @@
+# Template file for 'foo2zjs'
+pkgname=foo2zjs
+version=20260206
+revision=1
+build_style=gnu-makefile
+hostmakedepends=""
+makedepends="unzip bc cups-devel fig2dev groff wget foomatic-db-engine ghostscript jbigkit-devel"
+depends="psutils cups cups-filters"
+short_desc="Printer driver for zjs-based laser printers"
+maintainer="Alex Lohr <alexthkloss@web.de>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/OpenPrinting/foo2zjs"
+changelog="https://github.com/OpenPrinting/foo2zjs/releases"
+distfiles="https://github.com/OpenPrinting/foo2zjs/archive/refs/tags/${version}.tar.gz"
+checksum=5f95fd47de9001d750d534ec7c729b2157734b483cb7400081b0d6973f92dcd0
+
+pre_build() {
+	mkdir -p ${DESTDIR}/usr/share/ppd
+	cp -r /usr/share/foomatic ${DESTDIR}/usr/share/
+	vsed "s|PREFIX=/usr|PREFIX=${DESTDIR}/usr|" -i ${wrksrc}/Makefile
+}
+
+do_build() {
+	make all ppd
+}
+
+do_install() {
+	make install-prog install-ppd install-foo install-man install-doc
+}
