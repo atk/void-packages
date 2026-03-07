@@ -14,9 +14,9 @@
 #
 # XXX: KEEP IN SYNC WITH rpi-kernel
 pkgname=rpi5-kernel
-version=6.12.52
+version=6.19.6
 revision=1
-_githash=e2ada1fb48c197c3e2ab9ac58f0a1bf19b4abf85
+_githash=dce4fc93e0ecc65a4f0b83eb210e01d4ef2db7db
 archs="aarch64*"
 hostmakedepends="perl kmod uboot-mkimage openssl-devel bc bison flex xz pahole
  python3 elfutils-devel cpio tar zstd"
@@ -26,7 +26,7 @@ maintainer="classabbyamp <void@placeviolette.net>"
 license="GPL-2.0-only"
 homepage="http://www.kernel.org"
 distfiles="https://github.com/raspberrypi/linux/archive/${_githash}.tar.gz"
-checksum=16dfcd7ec02e55a86c348b609ce7a4cf8264ec3cd1033e4928b15fa558611c79
+checksum=a607d0de1923fd10762cd489156f77e599e9eee290e24bad3be251eccb4cd958
 python_version=3
 
 _kernver="${version}_${revision}"
@@ -263,6 +263,11 @@ do_install() {
 	# ... and run depmod again.
 	depmod -b ${DESTDIR}/usr -F System.map ${_kernver}
 	rm -f ${DESTDIR}/lib
+
+	# add vmlinux to kernel modules and tools to headers to enable dmks to sign kernel modules
+	cp vmlinux ${DESTDIR}/usr/lib/modules/${_kernver}/build/vmlinux
+	mkdir -p ${hdrdest}/tools/bpf/resolve_btfids
+	cp tools/bpf/resolve_btfids/{fixdep,resolve_btfids} ${hdrdest}/tools/bpf/resolve_btfids/
 }
 
 rpi5-kernel-headers_package() {
