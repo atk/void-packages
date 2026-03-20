@@ -14,9 +14,9 @@
 #
 # XXX: KEEP IN SYNC WITH rpi-kernel
 pkgname=rpi5-kernel
-version=6.19.6
+version=6.19.8
 revision=1
-_githash=dce4fc93e0ecc65a4f0b83eb210e01d4ef2db7db
+_githash=2488b873dc78d605138ff12dd455940bb234f441
 archs="aarch64*"
 hostmakedepends="perl kmod uboot-mkimage openssl-devel bc bison flex xz pahole
  python3 elfutils-devel cpio tar zstd"
@@ -26,7 +26,7 @@ maintainer="classabbyamp <void@placeviolette.net>"
 license="GPL-2.0-only"
 homepage="http://www.kernel.org"
 distfiles="https://github.com/raspberrypi/linux/archive/${_githash}.tar.gz"
-checksum=a607d0de1923fd10762cd489156f77e599e9eee290e24bad3be251eccb4cd958
+checksum=6f90e5b7a5012e0bf13cbd9de2d65844faf435df64ea83591f08d260eb2a2990
 python_version=3
 
 _kernver="${version}_${revision}"
@@ -268,6 +268,8 @@ do_install() {
 	cp vmlinux ${DESTDIR}/usr/lib/modules/${_kernver}/build/vmlinux
 	mkdir -p ${hdrdest}/tools/bpf/resolve_btfids
 	cp tools/bpf/resolve_btfids/{fixdep,resolve_btfids} ${hdrdest}/tools/bpf/resolve_btfids/
+	mkdir -p ${hdrdest}/certs
+	cp certs/{check-blacklist-hashes.awk,default_x509.genkey,extract-cert,signing_key.pem,signing_key.x509,x509.genkey,x509_certificate_list} ${hdrdest}
 }
 
 rpi5-kernel-headers_package() {
