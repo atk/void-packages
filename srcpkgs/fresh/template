@@ -1,6 +1,6 @@
 # Template file for 'fresh'
 pkgname=fresh
-version=0.2.18
+version=0.2.20
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config clang21"
@@ -11,7 +11,7 @@ license="GPL-2.0-only"
 homepage="https://getfresh.dev/"
 changelog="https://raw.githubusercontent.com/sinelaw/fresh/master/CHANGELOG.md"
 distfiles="https://github.com/sinelaw/fresh/archive/refs/tags/v${version}.tar.gz"
-checksum=ade96285323d42ae8a1df4ce6709757adb6c445248bafe3314971737a7252e62
+checksum=55ff033a3865e108a99a59eee6ea06428c4db3c8e19f1d9605e402c18015e6f5
 
 do_install() {
 	vbin target/${RUST_TARGET}/release/fresh
