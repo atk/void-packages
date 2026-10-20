@@ -1,8 +1,9 @@
 # Template file for 'fresh'
 pkgname=fresh
-version=0.5.3
+version=0.5.4
 revision=1
 build_style=cargo
+configure_args="--features=web"
 hostmakedepends="pkg-config clang22"
 makedepends="llvm22-devel oniguruma-devel"
 short_desc="Text editor for your terminal: easy, powerful and fast"
@@ -11,7 +12,7 @@ license="GPL-2.0-only"
 homepage="https://getfresh.dev/"
 changelog="https://raw.githubusercontent.com/sinelaw/fresh/master/CHANGELOG.md"
 distfiles="https://github.com/sinelaw/fresh/archive/refs/tags/v${version}.tar.gz"
-checksum=76b9731fe75b3a2d3e39acc695c7fa16b74c7aff4744f6afcc5cf2c9b529ed60
+checksum=b062b336a85bf290344fe4efb730468fd8bda6941e508bf76150a3afb6a9a2d6
 
 do_install() {
 	vbin target/${RUST_TARGET}/release/fresh
