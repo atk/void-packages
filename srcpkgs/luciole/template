@@ -4,13 +4,13 @@ version=0.1.0
 _githash=dacbc1d62c3903723ca8e622bb51ae0a85e47475
 revision=1
 build_style=meson
-configure_args=-Dnative_optimizations=true
+configure_args="-Dnative_optimizations=true"
 hostmakedepends="pkg-config wayland-devel"
 makedepends="wayland-protocols libcurl-devel libxml2-devel gdk-pixbuf-devel stb 
 	tomlplusplus-devel glib libepoxy-devel libarchive-devel liblzma-devel harfbuzz
 	freetype-devel fontconfig-devel pango-devel cairo-devel librsvg-devel libpng-devel
 	nlohmann-json libxkbcommon-devel"
-depends="egl-wayland2"
+depends="egl-wayland2 xz tar gzip"
 short_desc="A smooth, native Wayland file manager."
 maintainer="Alex Lohr <alexthkloss@web.de>"
 license="MIT"
